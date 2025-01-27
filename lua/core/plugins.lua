@@ -13,10 +13,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     os.exit(1)
   end
 end
---vim.api.nvim_set_keymap('n', '<leader>n', ':NERDTreeFocus<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', { noremap = true, silent = true })
+
 
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
@@ -33,10 +30,46 @@ require("lazy").setup({
  },
  --nerdtree плагин дерева типа neotree
 --{ 'https://github.com/preservim/nerdtree'},
+-- иконки для nerdtree
+-- {'https://github.com/ryanoasis/vim-devicons'},
 -- treesitter делает разметку текста
 {'nvim-treesitter/nvim-treesitter'},
 -- плагин строка кторая показывает режим (ввод, выделение и тд)
 {'https://github.com/vim-airline/vim-airline'},
+-- плагин автоматического закрытия ковычек
+{ 'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function'
+},
+-- цветовое выделенеи отступов вставляет полосы 
+{ 'lukas-reineke/indent-blankline.nvim',
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {}
+},
+-- встплывающее окно подсказка при нажатии клавиш
+{
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  opts = {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+  },
+},
+-- lsp конфиг
 {'neovim/nvim-lspconfig'},
 {'joshdick/onedark.vim'},
 {  "rose-pine/neovim", name = "rose-pine"},
