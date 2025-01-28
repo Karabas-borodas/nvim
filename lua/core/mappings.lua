@@ -15,3 +15,7 @@ vim.keymap.set('n', '<leader>o', ':Neotree float git_status<CR>')
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- Telescope bindings
+vim.keymap.set('n', ',ff', '<cmd>Telescope find_files<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', ',fg', '<cmd>Telescope live_grep<cr>', { noremap = true, silent = true })
