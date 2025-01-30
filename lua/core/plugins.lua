@@ -137,4 +137,8 @@ require("lazy").setup({
 	--{'joshdick/onedark.vim'},
 
 	{ "rose-pine/neovim", name = "rose-pine" },
+	-- клавиши перехода между окнами
+	{ "christoomey/vim-tmux-navigator" },
+	-- создание открытых окон
+	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
 })
