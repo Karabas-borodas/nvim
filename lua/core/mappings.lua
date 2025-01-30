@@ -25,3 +25,6 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 
 -- Save file
 vim.keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
+
+-- Назначение сочетания клавиш для вставки пустой строки ниже текущей строки
+vim.keymap.set("n", "<leader>o", "o<Esc>", { desc = "Insert empty line below" })
