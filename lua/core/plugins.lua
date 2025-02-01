@@ -140,5 +140,28 @@ require("lazy").setup({
 	-- клавиши перехода между окнами
 	{ "christoomey/vim-tmux-navigator" },
 	-- создание открытых окон
+
 	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
+	-- Debuger
+	require("plugins.debug"),
+
+	ui = {
+		-- If you have a Nerd Font, set icons to an empty table which will use the
+		-- default lazy.nvim defined Nerd Font icons otherwise define a unicode icons table
+		icons = vim.g.have_nerd_font and {} or {
+			cmd = "⌘",
+			config = "🛠",
+			event = "📅",
+			ft = "📂",
+			init = "⚙",
+			keys = "🗝",
+			plugin = "🔌",
+			runtime = "💻",
+			require = "🌙",
+			source = "📄",
+			start = "🚀",
+			task = "📌",
+			lazy = "💤 ",
+		},
+	},
 })
