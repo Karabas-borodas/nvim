@@ -36,13 +36,13 @@ require("lazy").setup({
 	-- плагин строка кторая показывает режим (ввод, выделение и тд)
 	{ "https://github.com/vim-airline/vim-airline" },
 	-- плагин автоматического закрытия ковычек
-	{
+	--[[ {
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true,
 		-- use opts = {} for passing setup options
 		-- this is equivalent to setup({}) function'
-	},
+	}, ]]
 	-- цветовое выделенеи отступов вставляет полосы
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -139,8 +139,9 @@ require("lazy").setup({
 	{ "rose-pine/neovim", name = "rose-pine" },
 	-- клавиши перехода между окнами
 	{ "christoomey/vim-tmux-navigator" },
+	-- "gc" to comment visual regions/lines
+	{ "numToStr/Comment.nvim", opts = {} },
 	-- создание открытых окон
-
 	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
 	-- Debuger
 	require("plugins.debug"),
