@@ -18,13 +18,48 @@ return {
       require('dap-go').setup()
 
       require('mason-nvim-dap').setup {
+        -- Makes a best effort to setup the various debuggers with
+        -- reasonable debug configurations
         automatic_setup = true,
+
+        -- You can provide additional configuration to the handlers,
+        -- see mason-nvim-dap README for more information
         handlers = {},
+
+        -- You'll need to check that you have the required things installed
+        -- online, please don't ask me how to install them :)
         ensure_installed = {
+          -- Update this to ensure that you have the debuggers for the langs you want
           'delve',
         },
       }
-      require('nvim-dap-virtual-text').setup {}
+      require('nvim-dap-virtual-text').setup {
+        -- NOTE: TJ DeVries: This just tries to mitigate the chance that I leak tokens here. Probably won't stop it from happening...
+        --
+        -- display_callback = function(variable)
+        --   local name = string.lower(variable.name)
+        --   local value = string.lower(variable.value)
+        --   if name:match 'secret' or name:match 'api' or value:match 'secret' or value:match 'api' then
+        --     return '*****'
+        --   end
+        --
+        --   if #variable.value > 15 then
+        --     return ' ' .. string.sub(variable.value, 1, 15) .. '... '
+        --   end
+        --
+        --   return ' ' .. variable.value
+        -- end,
+      }
+
+      -- Handled by nvim-dap-go
+      -- dap.adapters.go = {
+      --   type = "server",
+      --   port = "${port}",
+      --   executable = {
+      --     command = "dlv",
+      --     args = { "dap", "-l", "127.0.0.1:${port}" },
+      --   },
+      -- }
 
       local elixir_ls_debugger = vim.fn.exepath 'elixir-ls-debugger'
       if elixir_ls_debugger ~= '' then
@@ -48,9 +83,12 @@ return {
 
       vim.keymap.set('n', '<space>b', dap.toggle_breakpoint)
       vim.keymap.set('n', '<space>gb', dap.run_to_cursor)
+
+      -- Eval var under cursor
       vim.keymap.set('n', '<space>?', function()
         require('dapui').eval(nil, { enter = true })
       end)
+
       vim.keymap.set('n', '<F1>', dap.continue)
       vim.keymap.set('n', '<F2>', dap.step_into)
       vim.keymap.set('n', '<F3>', dap.step_over)
