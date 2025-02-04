@@ -1,9 +1,10 @@
 vim.g.mapleader = " "
 
 -- NeoTree
-vim.keymap.set("n", "<leader>e", ":Neotree left reveal<CR>")
-vim.keymap.set("n", "<leader>o", ":Neotree float git_status<CR>")
-
+-- vim.keymap.set("n", "<leader>e", ":Neotree left reveal<CR>")
+-- vim.keymap.set("n", "<leader>o", ":Neotree float git_status<CR>")
+-- Настройка сочетания клавиш для открытия и закрытия neo-tree
+vim.api.nvim_set_keymap("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true })
 -- Key mappings for NERDTree tree plagin
 --vim.api.nvim_set_keymap('n', '<leader>n', ':NERDTreeFocus<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true, silent = true })
