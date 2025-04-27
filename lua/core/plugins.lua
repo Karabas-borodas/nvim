@@ -18,6 +18,24 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{ "phaazon/hop.nvim" },
 	{
+		"nvim-lua/plenary.nvim",
+		config = function()
+			local function install_phoenix()
+				local handle = io.popen("mix archive | grep phx_new")
+				local result = handle:read("*a")
+				handle:close()
+				if result == "" then
+					print("Установка Phoenix...")
+					os.execute("mix archive.install hex phx_new")
+				else
+					print("Phoenix уже установлен.")
+				end
+			end
+			install_phoenix()
+		end,
+	},
+
+	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
