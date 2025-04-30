@@ -13,7 +13,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 		os.exit(1)
 	end
 end
-
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{ "phaazon/hop.nvim" },
@@ -45,14 +44,32 @@ require("lazy").setup({
 			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 		},
 	},
+	-- плагин заметок NOTE: FIX:
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+	},
 	--nerdtree плагин дерева типа neotree
 	--{ 'https://github.com/preservim/nerdtree'},
 	-- иконки для nerdtree
 	-- {'https://github.com/ryanoasis/vim-devicons'},
 	-- treesitter делает разметку текста
-	{ "nvim-treesitter/nvim-treesitter" },
-	-- плагин строка кторая показывает режим (ввод, выделение и тд)
-	{ "https://github.com/vim-airline/vim-airline" },
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+		{ "nvim-treesitter/nvim-treesitter" },
+		-- плагин строка кторая показывает режим (ввод, выделение и тд)
+		{ "https://github.com/vim-airline/vim-airline" },
+	},
 	-- плагин автоматического закрытия ковычек
 	--[[ {
 		"windwp/nvim-autopairs",

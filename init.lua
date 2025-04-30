@@ -17,6 +17,7 @@ require("plugins.debug")
 require("plugins.tmux_navigator")
 require("plugins.terminal")
 require("plugins.buffline")
+require("plugins.planery")
 --require('plugins.lsp')
 vim.cmd([[
   autocmd VimEnter * if filereadable("mix.exs") | silent !mix phx.server & | endif
