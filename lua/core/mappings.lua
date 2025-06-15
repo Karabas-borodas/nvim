@@ -2,6 +2,11 @@ vim.g.mapleader = " "
 
 -- NeoTree
 vim.keymap.set("n", "<leader>e", ":Neotree left reveal<CR>")
+-- Переход на правое окно
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
+-- Переход на левое окно
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
+
 -- vim.keymap.set("n", "<leader>o", ":Neotree float git_status<CR>")
 -- Настройка сочетания клавиш для открытия и закрытия neo-tree
 vim.api.nvim_set_keymap("n", "\\", ":Neotree close<CR>", { noremap = true, silent = true })

@@ -25,11 +25,39 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
 {'nvim-lua/plenary.nvim'},
-{
+   {
     'nvim-telescope/telescope.nvim', tag = '0.1.8',
 -- or                              , branch = '0.1.x',
       dependencies = { 'nvim-lua/plenary.nvim' }
     },
+    	 -- lsp конфиг
+
+	 {
+	 	"neovim/nvim-lspconfig",
+	 	dependencies = {
+	 		-- Automatically install LSPs and related tools to stdpath for neovim
+	 		"williamboman/mason.nvim",
+	 		"williamboman/mason-lspconfig.nvim",
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+
+ 		-- Useful status updates for LSP.
+ 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+ 		{ "j-hui/fidget.nvim", opts = {} },
+
+	 		-- nvim-cmp for autocompletion
+	 		"hrsh7th/nvim-cmp",
+	 		"hrsh7th/cmp-nvim-lsp",
+	 		"L3MON4D3/LuaSnip",
+	 		"saadparwaiz1/cmp_luasnip",
+	 	},
+	 	config = function()
+	 		require("plugins.lsp")
+	 	end,
+	 },
+
+
+      -- Useful for getting pretty icons, but requires a Nerd Font.
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
 
       {  'phaazon/hop.nvim'},
 -- treesitter делает разметку текста
