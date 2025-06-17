@@ -80,6 +80,14 @@ require("lazy").setup({
       {  'phaazon/hop.nvim'},
 -- treesitter делает разметку текста
 {"nvim-treesitter/nvim-treesitter"},
+--cmp plugins (плагины для автодополнения)
+ { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "hrsh7th/cmp-path" },
+	{ "hrsh7th/cmp-cmdline" },
+	{ "hrsh7th/nvim-cmp" },
+
     { import = "plugins" },
   },
   -- Configure any other settings here. See the documentation for more details.

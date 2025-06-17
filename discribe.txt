@@ -32,3 +32,14 @@ https://github.com/folke/lazy.nvim?tab=readme-ov-file -----9версия
 
 дерево neotree
 https://github.com/nvim-neo-tree/neo-tree.nvim
+
+lsp дополнитель установка плагинов
+sudo apt install golang-go
+
+телескоп установка дополнительных плагинов
+sudo apt-get install ripgrep
+sudo apt-get install fd-find
+
+настройка тем
+https://github.com/rebelot/kanagawa.nvim
+
