@@ -67,7 +67,7 @@ require("lazy").setup({
     --     vim.cmd("colorscheme kanagawa-wave")
     --   end,
     -- },
-
+--theme
 {
       'JoosepAlviste/palenightfall.nvim',
       config = function()
@@ -76,7 +76,7 @@ require("lazy").setup({
     },
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-
+--keymap jklh move
       {  'phaazon/hop.nvim'},
 -- treesitter делает разметку текста
 {"nvim-treesitter/nvim-treesitter"},
@@ -87,6 +87,28 @@ require("lazy").setup({
 	{ "hrsh7th/cmp-path" },
 	{ "hrsh7th/cmp-cmdline" },
 	{ "hrsh7th/nvim-cmp" },
+-- leader meny (вызывает меню на пробел)
+{
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  opts = {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+  },
+},
+
+
+
 
     { import = "plugins" },
   },
