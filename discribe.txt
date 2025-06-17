@@ -9,6 +9,9 @@ https://elixir-lang.org/install.html
 
 база с Astrovim
 Устанавливаем nvim
+https://github.com/neovim/neovim/blob/master/INSTALL.md
+из файла tag
+
 удаляем все фалы nvim
 mv ~/.local/share/nvim ~/.local/share/nvim.bak
 mv ~/.local/state/nvim ~/.local/state/nvim.bak

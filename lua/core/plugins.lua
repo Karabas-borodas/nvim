@@ -25,11 +25,17 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
 {'nvim-lua/plenary.nvim'},
-   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8',
--- or                              , branch = '0.1.x',
+--    {
+--     'nvim-telescope/telescope.nvim', tag = '0.1.8',
+-- -- or                              , branch = '0.1.x',
+--       dependencies = { 'nvim-lua/plenary.nvim' }
+{
+      'nvim-telescope/telescope.nvim', tag = '0.1.8',
       dependencies = { 'nvim-lua/plenary.nvim' }
     },
+
+    {   "mason-org/mason.nvim",
+    opts = {}},
     	 -- lsp конфиг
 
 	 {
@@ -54,8 +60,20 @@ require("lazy").setup({
 	 		require("plugins.lsp")
 	 	end,
 	 },
+	-- thems
+    -- {
+    --   "rebelot/kanagawa.nvim",
+    --   config = function()
+    --     vim.cmd("colorscheme kanagawa-wave")
+    --   end,
+    -- },
 
-
+{
+      'JoosepAlviste/palenightfall.nvim',
+      config = function()
+        vim.cmd("colorscheme palenightfall")
+      end,
+    },
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
 
