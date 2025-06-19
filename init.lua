@@ -3,7 +3,8 @@ require("core.plugins")
 require("core.mappings")
 require("core.plugins")
 --theme
-require("core.palenightfall")
+-- require("core.palenightfall")
+require("core.tundra")
 -- require("core.kanagawa")
 
 -- plugins

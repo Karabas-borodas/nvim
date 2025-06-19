@@ -32,12 +32,12 @@ require("lazy").setup({
 -- PERF:
 -- WARNING:
 -- INFO:
---ISSUE:
---OPTIM:
---XXX:
---PERFORMANCE:
---TESTING:
---PASSED:
+-- ISSUE:
+-- OPTIM:
+-- XXX:
+-- PERFORMANCE:
+-- TESTING:
+-- PASSED:
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -76,12 +76,30 @@ require("lazy").setup({
       end,
     },
     -- Themes
-    {
-      'JoosepAlviste/palenightfall.nvim',
-      config = function()
-        vim.cmd("colorscheme palenightfall")
-      end,
-    },
+--     {
+--
+--   "rebelot/kanagawa.nvim",
+--
+--   config = function()
+--
+--     vim.cmd("colorscheme kanagawa-dragon")  -- Make sure to use the correct colorscheme name
+--
+--   end,
+--
+-- },
+{"sam4llis/nvim-tundra",
+  -- config = function()
+  --
+  --   vim.cmd("colorscheme arctic")  -- Make sure to use the correct colorscheme name
+  --
+  -- end,
+  },
+-- {
+--       'JoosepAlviste/palenightfall.nvim',
+--       config = function()
+--         vim.cmd("colorscheme palenightfall")
+--       end,
+--     },
     -- Useful for getting pretty icons, but requires a Nerd Font.
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     { 'phaazon/hop.nvim' },
