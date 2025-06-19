@@ -3,9 +3,8 @@ require("core.plugins")
 require("core.mappings")
 require("core.plugins")
 --theme
- require("core.palenightfall")
+require("core.palenightfall")
 -- require("core.kanagawa")
-
 
 -- plugins
 require("plugins.treesitter")
@@ -15,3 +14,4 @@ require("plugins.lsp")
 require("plugins.cmp")
 require("plugins.whichkey")
 require("plugins.debug")
+require("plugins.terminal")
