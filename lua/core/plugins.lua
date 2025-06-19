@@ -25,6 +25,28 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     {'nvim-lua/plenary.nvim'},
+-- плагин заметок NOTE:
+-- FIX:
+-- HACK:
+-- TODO:
+-- PERF:
+-- WARNING:
+-- INFO:
+--ISSUE:
+--OPTIM:
+--XXX:
+--PERFORMANCE:
+--TESTING:
+--PASSED:
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+	},
     {
       'nvim-telescope/telescope.nvim', tag = '0.1.8',
       dependencies = { 'nvim-lua/plenary.nvim' }
