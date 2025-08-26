@@ -116,7 +116,7 @@ require("lazy").setup({
         'leoluz/nvim-dap-go',
       },
       config = function()
-        require("plugins.dap")
+        require("plugins.debug")
       end,
     },
     { import = "plugins" },

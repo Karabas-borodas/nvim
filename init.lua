@@ -16,3 +16,5 @@ require("plugins.cmp")
 require("plugins.whichkey")
 require("plugins.debug")
 require("plugins.terminal")
+require("plugins.somesettings")
+

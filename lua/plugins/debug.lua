@@ -18,131 +18,83 @@ return {
       "jay-babu/mason-nvim-dap.nvim",
       "tomblind/local-lua-debugger-vscode",
     },
-    config = function()
-      local dap = require("dap")
-      local ui = require("dapui")
+config = function()
+  local dap = require("dap")
+  local ui = require("dapui")
 
-      require("dapui").setup()
-      require("dap-go").setup()
+  require("dapui").setup()
+  require("dap-go").setup()
 
-      require("mason-nvim-dap").setup({
-        -- Makes a best effort to setup the various debuggers with
-        -- reasonable debug configurations
-        automatic_setup = true,
-        automatic_installation = true,
+  require("mason-nvim-dap").setup({
+    -- конфигурация mason-nvim-dap ...
+  })
 
-        -- You can provide additional configuration to the handlers,
-        -- see mason-nvim-dap README for more information
-        handlers = {},
+  require("nvim-dap-virtual-text").setup({
+    -- конфигурация виртуального текста ...
+  })
 
-        -- You'll need to check that you have the required things installed
-        -- online, please don't ask me how to install them :)
-        ensure_installed = {
-          -- Update this to ensure that you have the debuggers for the langs you want
-          "delve",
-          "codelldb",
-          "local-lua-debugger-vscode",
-        },
-      })
-      require("nvim-dap-virtual-text").setup({
-        -- NOTE: TJ DeVries: This just tries to mitigate the chance that I leak tokens here. Probably won't stop it from happening...
-        --
-        display_callback = function(variable)
-          local name = string.lower(variable.name)
-          local value = string.lower(variable.value)
-          if name:match("secret") or name:match("api") or value:match("secret") or value:match("api") then
-            return "*****"
-          end
+  -- Здесь должна быть вся настройка адаптеров
+  dap.adapters.cppdbg = {
+    id = 'cppdbg',
+    type = 'executable',
+    command = 'OpenDebugAD7',
+  }
 
-          if #variable.value > 15 then
-            return " " .. string.sub(variable.value, 1, 15) .. "... "
-          end
+  dap.configurations.cpp = {
+    {
+      name = 'Launch file',
+      type = 'cppdbg',
+      request = 'launch',
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
+      cwd = '${workspaceFolder}',
+      stopAtEntry = true,
+      runInTerminal = true,  -- Включает запуск в терминале nvim
+    },
+    {
+      name = 'Attach to process',
+      type = 'cppdbg',
+      request = 'attach',
+      processId = require('dap.utils').pick_process,
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
+      cwd = '${workspaceFolder}',
+    },
+  }
 
-          return " " .. variable.value
-        end,
-      })
+  dap.configurations.c = dap.configurations.cpp
 
-      -- Handled by nvim-dap-go
-      -- dap.adapters.go = {
-      --   type = "server",
-      --   port = "${port}",
-      --   executable = {
-      --     command = "dlv",
-      --     args = { "dap", "-l", "127.0.0.1:${port}" },
-      --   },
-      -- }
+  -- Далее настройка клавиш и слушателей тоже должна быть внутри функции
+  vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
+  vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
 
-      -- Evgeny Koltsov: This is config for Lua from ChatGPT. Doesn't work yet.
-      -- -- Configure the Lua Debugger Adapter (local-lua-debugger-vscode)
-      -- dap.adapters.lua = {
-      --   type = "server",
-      --   host = "127.0.0.1", -- Debugger server will run on localhost
-      --   port = 8086, -- Default port for local-lua-debugger-vscode, change if necessary
-      --   executable = {
-      --     command = "~/.local/share/nvim/lazy/local-lua-debugger-vscode", -- Replace with the path to the debugger binary
-      --     args = { "--server" }, -- Arguments to run the debugger in server mode
-      --   },
-      -- }
-      --
-      -- -- Lua Debugger launch configuration
-      -- dap.configurations.lua = {
-      --   {
-      --     type = "lua",
-      --     request = "launch",
-      --     name = "Launch Lua file",
-      --     program = "${file}", -- Program to run (current file)
-      --   },
-      -- }
+  vim.keymap.set("n", "<space>?", function()
+    require("dapui").eval(nil, { enter = true })
+  end)
 
-      local elixir_ls_debugger = vim.fn.exepath("elixir-ls-debugger")
-      if elixir_ls_debugger ~= "" then
-        dap.adapters.mix_task = {
-          type = "executable",
-          command = elixir_ls_debugger,
-        }
+  vim.keymap.set("n", "<F1>", dap.continue)
+  vim.keymap.set("n", "<F2>", dap.step_into)
+  vim.keymap.set("n", "<F3>", dap.step_over)
+  vim.keymap.set("n", "<F4>", dap.step_out)
+  vim.keymap.set("n", "<F5>", dap.step_back)
+  vim.keymap.set("n", "<F6>", dap.restart)
+  vim.keymap.set("n", "<F8>", dap.terminate)
+  vim.keymap.set("n", "<F9>", dap.toggle_breakpoint)
 
-        dap.configurations.elixir = {
-          {
-            type = "mix_task",
-            name = "phoenix server",
-            task = "phx.server",
-            request = "launch",
-            projectDir = "${workspaceFolder}",
-            exitAfterTaskReturns = false,
-            debugAutoInterpretAllModules = false,
-          },
-        }
-      end
-
-      vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
-      vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
-
-      -- Eval var under cursor
-      vim.keymap.set("n", "<space>?", function()
-        require("dapui").eval(nil, { enter = true })
-      end)
-
-      vim.keymap.set("n", "<F1>", dap.continue)
-      vim.keymap.set("n", "<F2>", dap.step_into)
-      vim.keymap.set("n", "<F3>", dap.step_over)
-      vim.keymap.set("n", "<F4>", dap.step_out)
-      vim.keymap.set("n", "<F5>", dap.step_back)
-      vim.keymap.set("n", "<F6>", dap.restart)
-      vim.keymap.set("n", "<F8>", dap.terminate)
-      vim.keymap.set("n", "<F9>", dap.toggle_breakpoint)
-
-      dap.listeners.before.attach.dapui_config = function()
-        ui.open()
-      end
-      dap.listeners.before.launch.dapui_config = function()
-        ui.open()
-      end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        ui.close()
-      end
-      dap.listeners.before.event_exited.dapui_config = function()
-        ui.close()
-      end
-    end,
+  dap.listeners.before.attach.dapui_config = function()
+    ui.open()
+  end
+  dap.listeners.before.launch.dapui_config = function()
+    ui.open()
+  end
+  dap.listeners.before.event_terminated.dapui_config = function()
+    ui.close()
+  end
+  dap.listeners.before.event_exited.dapui_config = function()
+    ui.close()
+  end
+end,  -- конец функции config
   },
 }
