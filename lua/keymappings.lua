@@ -14,6 +14,8 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "\\", ":Neotree close<CR>", { noremap = true, silent = true })
 -- disable search highlighting by pressing enter
 remap("n", "<cr>", "<cmd>:nohlsearch<cr><cr>")
+-- Save file
+vim.keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
 
 -- tab management
 remap("n", "<C-Insert>", "<cmd>:tabnew<cr>", bufopts, "New tab")

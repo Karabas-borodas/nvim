@@ -7,10 +7,7 @@ return {
     opts = {},
   },
   -- install mason
-{
-      "mason-org/mason.nvim",
-      opts = {},
-    },
+  { import = 'plugins.mason' },
 
   'godlygeek/tabular',
   'itspriddle/vim-marked',
