@@ -4,7 +4,12 @@
 
 local remap = require("me.util").remap
 local bufopts = { silent = true, noremap = true }
-
+-- open neotee
+vim.keymap.set("n", "<leader>e", ":Neotree left reveal<CR>")
+-- Переход на правое окно
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
+-- Переход на левое окно
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
 -- disable search highlighting by pressing enter
 remap("n", "<cr>", "<cmd>:nohlsearch<cr><cr>")
 
