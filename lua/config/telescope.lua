@@ -8,9 +8,13 @@ require('telescope').setup({
     },
     dynamic_preview_title = true,
     mappings = {
+      --Когда ты находишься в окне Telescope
+      --(в нормальном n или вставочном i режиме) и нажимаешь Ctrl + d,
+      --выбранный буфер будет удален (закрыт). Это удобно, например,
+      --в :Telescope buffers для быстрой очистки открытых файлов.
+      --Осторожно, это действие необратимо!
       n = {
-    	  ['<c-d>'] = require('telescope.actions').delete_buffer
-      },
+    	  ['<c-d>'] = require('telescope.actions').delete_buffer},
       i = {
         ['<c-d>'] = require('telescope.actions').delete_buffer
       },

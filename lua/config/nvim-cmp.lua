@@ -2,11 +2,13 @@ local cmp = require 'cmp'
 local lspkind = require('lspkind')
 cmp.setup {
   sources = {
+    -- откуда lsp берет подсказки синтаксиса
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
     { name = 'vsnip' },
     { name = "copilot" },
   },
+  -- вставка сниппета из базы
   snippet = {
     expand = function(args)
       -- Comes from vsnip
@@ -14,25 +16,25 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),-- Ctr+d прокрутка вниз сниппетов
+    ['<C-f>'] = cmp.mapping.scroll_docs(4), -- Ctr_f прокрутка вверх
+    ['<C-Space>'] = cmp.mapping.complete(),--  Принудительно вызывает меню автодополнения, если оно не появилось само.
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
-    },
+    },--  (клавиша Enter): Подтверждает выбор.
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_next_item()
+        cmp.select_next_item()--Если меню открыто: Tab выбирает следующий пункт в меню.
       else
-        fallback()
+        fallback()--Если меню закрыто: Tab работает как обычно (вставляет символ табуляции).
       end
     end, { 'i', 's' }),
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item()
+        cmp.select_prev_item()--Если меню открыто: Shift+Tab выбирает предыдущий пункт.
       else
-        fallback()
+        fallback()--Если меню закрыто: Shift+Tab работает как обычно.:
       end
     end, { 'i', 's' }),
   }),

@@ -25,7 +25,7 @@ augroup('YankHighlight', { clear = true })
 autocmd('TextYankPost', {
   group = 'YankHighlight',
   callback = function()
-    vim.hl.on_yank({ higroup = 'IncSearch', timeout = '1000' })
+    vim.hl.on_yank({ higroup = 'IncSearch', timeout = '2000' })
   end
 })
 
@@ -70,34 +70,12 @@ autocmd('BufWritePre', {
 -- Language settings: форматирует коод перед сохранением в файл
 --оригинальный код
 ---------------------
-autocmd('BufWritePre', {
-  pattern = '*.go',
-  callback = function()
-    local params = vim.lsp.util.make_range_params()
-    params.context = {only = {"source.organizeImports"}}
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
-    for cid, res in pairs(result or {}) do
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-          vim.lsp.util.apply_workspace_edit(r.edit, enc)
-        end
-      end
-    end
-  end
-})
---мой код разницы я не заметил
 -- autocmd('BufWritePre', {
---   -- Применяем автокоманду и для .go, и для .java файлов
---   pattern = { '*.go', '*.java' },
+--   pattern = '*.go',
 --   callback = function()
---     -- Определяем тайм-аут здесь, чтобы он был доступен
---     local timeout_ms = 2000 -- Ждать ответа сервера до 2 секунд
-
 --     local params = vim.lsp.util.make_range_params()
 --     params.context = {only = {"source.organizeImports"}}
-
---     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
+--     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
 --     for cid, res in pairs(result or {}) do
 --       for _, r in pairs(res.result or {}) do
 --         if r.edit then
@@ -108,3 +86,25 @@ autocmd('BufWritePre', {
 --     end
 --   end
 -- })
+--мой код разницы я не заметил
+autocmd('BufWritePre', {
+  -- Применяем автокоманду и для .go, и для .java файлов
+  pattern = { '*.go', '*.java' },
+  callback = function()
+    -- Определяем тайм-аут здесь, чтобы он был доступен
+    local timeout_ms = 1000 -- Ждать ответа сервера до 2 секунд
+
+    local params = vim.lsp.util.make_range_params()
+    params.context = {only = {"source.organizeImports"}}
+
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
+    for cid, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+        end
+      end
+    end
+  end
+})

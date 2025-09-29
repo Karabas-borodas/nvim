@@ -6,6 +6,12 @@ return {
     event = "VeryLazy",
     opts = {},
   },
+  -- install mason
+{
+      "mason-org/mason.nvim",
+      opts = {},
+    },
+
   'godlygeek/tabular',
   'itspriddle/vim-marked',
   'ludovicchabant/vim-gutentags',
