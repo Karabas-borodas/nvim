@@ -1,25 +1,19 @@
---Basic
-require("core.plugins")
-require("core.mappings")
-require("core.colors")
+-- Automatically install lazy.nvim if it does not exist
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
---Plugins
-require("plugins.neotree")
-require("plugins.treesitter")
-require("plugins.mason")
-require("plugins.some_plagins")
-require("plugins.lsp")
-require("plugins.telescope")
-require("plugins.cmp")
-
---require('plugins.nullls')
-require("plugins.debug")
-require("plugins.tmux_navigator")
-require("plugins.terminal")
-require("plugins.buffline")
-require("plugins.planery")
---require('plugins.lsp')
-vim.cmd([[
-  autocmd VimEnter * if filereadable("mix.exs") | silent !mix phx.server & | endif
-]])
-vim.cmd("autocmd VimEnter * !mix archive.install hex phx_new --force")
+require('core')
+require('lazy').setup('plugins')
+require('lsp')
+require('config/terminal')
+require('keymappings')

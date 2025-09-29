@@ -12,39 +12,6 @@ return {
   'neovim/nvim-lspconfig',
   'nvim-lua/plenary.nvim',
   'nvim-tree/nvim-web-devicons',
-  --FIX: Neotree plagins
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons", -- optional, but recommended
-    },
-    lazy = false, -- neo-tree will lazily load itself
-  },
--- плагин заметок NOTE:
--- FIX:
--- HACK:
--- TODO:
--- PERF:
--- WARNING:
--- INFO:
--- ISSUE:
--- OPTIM:
--- XXX:
--- PERFORMANCE:
--- TESTING:
--- PASSED:
-	{
-		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',

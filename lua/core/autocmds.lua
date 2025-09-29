@@ -12,14 +12,15 @@ local usercmd = vim.api.nvim_create_user_command   -- Create usercommand
 -- General settings:
 --------------------
 
--- use Open instead of netrw
+-- use Open instead of netrw при вооде команды :Browse открывает токущую
+-- папку
 usercmd(
   'Browse',
-  "silent execute '!open' shellescape(<q-args>,1)",
+  "silent execute 'xdg-open' shellescape(<q-args>,1)",
   { nargs = 1, bang = true }
 )
 
--- Highlight on yank
+-- Highlight on yank подыветка скопированного текста
 augroup('YankHighlight', { clear = true })
 autocmd('TextYankPost', {
   group = 'YankHighlight',
@@ -28,9 +29,9 @@ autocmd('TextYankPost', {
   end
 })
 
--- Remove whitespace on save
+-- Remove whitespace on save удаляет все лишние пробелы вконце строки
 autocmd('BufWritePre', {
-  pattern = '',
+  pattern = '*',
   command = ":%s/\\s\\+$//e"
 })
 
@@ -46,27 +47,28 @@ autocmd('BufWritePre', {
 ---------------------
 
 -- Open a Terminal on the right tab
--- autocmd('CmdlineEnter', {
---   command = 'command! Term :botright vsplit term://$SHELL'
+ -- autocmd('CmdlineEnter', {
+ --   command = 'command! Term :botright vsplit term://$SHELL'
+ -- })
+
+-- -- Enter insert mode when switching to terminal
+ -- autocmd('TermOpen', {
+ --   command = 'setlocal listchars= nonumber norelativenumber nocursorline',
+ -- })
+-- --
+ -- autocmd('TermOpen', {
+ --   pattern = '',
+ --   command = 'startinsert'
+ -- })
+
+-- -- Close terminal buffer on process exit
+-- autocmd('BufLeave', {
+ --  pattern = 'term://*',
+ --  command = 'stopinsert'
 -- })
 
--- Enter insert mode when switching to terminal
--- autocmd('TermOpen', {
---   command = 'setlocal listchars= nonumber norelativenumber nocursorline',
--- })
---
--- autocmd('TermOpen', {
---   pattern = '',
---   command = 'startinsert'
--- })
-
--- Close terminal buffer on process exit
-autocmd('BufLeave', {
-  pattern = 'term://*',
-  command = 'stopinsert'
-})
-
--- Language settings:
+-- Language settings: форматирует коод перед сохранением в файл
+--оригинальный код
 ---------------------
 autocmd('BufWritePre', {
   pattern = '*.go',
@@ -84,3 +86,25 @@ autocmd('BufWritePre', {
     end
   end
 })
+--мой код разницы я не заметил
+-- autocmd('BufWritePre', {
+--   -- Применяем автокоманду и для .go, и для .java файлов
+--   pattern = { '*.go', '*.java' },
+--   callback = function()
+--     -- Определяем тайм-аут здесь, чтобы он был доступен
+--     local timeout_ms = 2000 -- Ждать ответа сервера до 2 секунд
+
+--     local params = vim.lsp.util.make_range_params()
+--     params.context = {only = {"source.organizeImports"}}
+
+--     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
+--     for cid, res in pairs(result or {}) do
+--       for _, r in pairs(res.result or {}) do
+--         if r.edit then
+--           local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+--           vim.lsp.util.apply_workspace_edit(r.edit, enc)
+--         end
+--       end
+--     end
+--   end
+-- })
