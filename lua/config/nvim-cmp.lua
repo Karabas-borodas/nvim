@@ -11,7 +11,7 @@ cmp.setup {
   -- вставка сниппета из базы
   snippet = {
     expand = function(args)
-      -- Comes from vsnip
+     -- Comes from vsnip
       vim.fn["vsnip#anonymous"](args.body)
     end,
   },

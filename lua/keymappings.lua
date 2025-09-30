@@ -10,6 +10,10 @@ vim.keymap.set("n", "<leader>e", ":Neotree left reveal<CR>")
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
 -- Переход на левое окно
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
+-- Переход на нижнее окно (добавлено)
+vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { noremap = true, silent = true })
+-- Переход на верхнее окно (добавлено)
+vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { noremap = true, silent = true })
 --open neotree
 vim.api.nvim_set_keymap("n", "\\", ":Neotree close<CR>", { noremap = true, silent = true })
 -- disable search highlighting by pressing enter
@@ -115,3 +119,15 @@ remap("n", "<leader>vs", "<cmd>TestSuite<cr>", bufopts, "Test suite")
 remap("n", "<leader>vl", "<cmd>TestLast<cr>", bufopts, "Test last")
 --<leader>vg: Перейти к файлу с тестом для текущего кода.
 remap("n", "<leader>vg", "<cmd>TestVisit<cr>", bufopts, "Go to test")
+
+
+vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+ vim.fn.sign_define("DiagnosticSignError",
+ {text = " ", texthl = "DiagnosticSignError"})
+ vim.fn.sign_define("DiagnosticSignWarn",
+ {text = " ", texthl = "DiagnosticSignWarn"})
+ vim.fn.sign_define("DiagnosticSignInfo",
+ {text = " ", texthl = "DiagnosticSignInfo"})
+ vim.fn.sign_define("DiagnosticSignHint",
+ {text = "󰌵", texthl = "DiagnosticSignHint"})
+
