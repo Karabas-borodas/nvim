@@ -1,5 +1,30 @@
-return {
-  'andymass/vim-matchup',
+return {    { "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = "BufReadPost",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "lua", "python", "javascript" },
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end,},
+  --% прыжок к следйющей скобке, слову закрывающей скобке
+  --g%	Перейти к парному элементу в обратном направлении.
+  --[%	Перейти к началу блока.
+  --]%	Перейти к концу блока.
+  --z%	Перейти к следующему элементу в середине блока.
+   {
+   "andymass/vim-matchup",
+  event = "BufReadPost",
+  config = function()
+    vim.g.matchup_matchparen_enabled = 1          -- Отключает встроенный matchparen
+    vim.g.matchup_matchparen_deferred = 1        -- Улучшает производительность
+    vim.g.matchup_matchparen_offscreen = {      -- Показывает подсказки за пределами экрана
+      method = "popup",
+    }
+    vim.g.matchup_text_obj_enabled = 1          -- Включает текстовые объекты (di%, ci% etc.)
+    vim.g.matchup_surround_enabled = 1          -- Интеграция с vim-surround
+  end,  },
   'bronson/vim-visual-star-search',
   {
     'chentoast/marks.nvim',
