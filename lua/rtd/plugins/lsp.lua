@@ -178,7 +178,7 @@ return {
   {
   "seblj/roslyn.nvim",
   ft = "cs",
-  -- enabled = false,
+  enabled = false,
   opts = {
     config = {
       on_attach = function (client, bufnr)
