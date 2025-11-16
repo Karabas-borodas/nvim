@@ -1,5 +1,6 @@
 return {
   {
+-- мощный движок для сниппетов в Neovim, работающий на Lua.
     "L3MON4D3/LuaSnip",
     lazy = true,
     dependencies = {

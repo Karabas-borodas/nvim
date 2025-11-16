@@ -1,5 +1,6 @@
 return {
   {
+-- Файловый менеджер (проводник) запуск на "-"
     "A7Lavinraj/fyler.nvim",
     dependencies = { "nvim-mini/mini.icons" },
     branch = "stable",
@@ -8,22 +9,13 @@ return {
     },
     opts = {},
   },
-  -- {
-  --   "stevearc/oil.nvim",
-  --   keys = {
-  --     { "-", "<cmd>Oil<cr>", desc = "Open Oil" },
-  --   },
-  --   opts = {
-  --     delete_to_trash = true,
-  --     skip_confirm_for_simple_edits = true,
-  --   },
-  -- },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     cmd = "Neotree",
     keys = {
-      { "<leader>fp", "<cmd>Neotree reveal toggle<cr>", desc = "Toggle Filetree" },
+      { "\\", "<cmd>Neotree reveal toggle<cr>", desc = "Toggle Filetree" },
     },
     init = function()
       -- Load neo-tree when nvim is started with a directory

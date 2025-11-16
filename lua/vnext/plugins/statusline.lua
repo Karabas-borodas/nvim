@@ -1,5 +1,5 @@
 -- Lualine configuration with helper functions
-
+-- Статуслайн конфигурация  
 -- Configuration constants
 local DEFAULT_ENCODING = "utf-8"
 local DEFAULT_FILEFORMAT = "unix"

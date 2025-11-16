@@ -1,4 +1,5 @@
 return {
+--Плагин для автоформатирования кода при сохранении файла, уходе из режима вставки и при открытии буфера.
   {
     "stevearc/conform.nvim",
     event = { "BufReadPre", "BufNewFile", "InsertLeave" },
@@ -49,6 +50,7 @@ return {
     end,
   },
 
+--Позволяет быстро прыгать к словам или элементам кода по шаблону или дереву синтаксиса (treesitter).
   {
     "folke/flash.nvim",
     opts = {},
@@ -82,6 +84,7 @@ return {
     },
   },
 
+  -- обрамление текста буфера 
   {
     "nvim-mini/mini.surround",
     event = { "BufReadPre", "BufNewFile" },
@@ -90,6 +93,10 @@ return {
       n_lines = 50,
     },
   },
+
+ --Позволяет изящно заменять текст выбранной области или в операторном режиме с помощью горячих клавиш.
+-- Клавиша s в нормальном режиме — оператор для замены (вызывается require("substitute").operator()).
+-- Клавиша s в визуальном режиме — замена выделенного текста (вызывается require("substitute").visual()).
 
   {
     "gbprod/substitute.nvim",
@@ -102,6 +109,7 @@ return {
     opts = {},
   },
 
+  -- вызывает лист коментариев <leader>sT
   {
     {
       "folke/todo-comments.nvim",
@@ -121,17 +129,38 @@ return {
   },
 
   {
-    "allaman/emoji.nvim",
-    dev = true,
-    ft = "markdown",
-    opts = {
-      enable_cmp_integration = true,
-      plugin_path = vim.fn.expand("~/workspace/github.com/allaman"),
-    },
+ "allaman/emoji.nvim",
+  version = "1.0.0", -- optionally pin to a tag
+  ft = "markdown", -- adjust to your needs
+  dependencies = {
+    -- util for handling paths
+    "nvim-lua/plenary.nvim",
+    -- optional for nvim-cmp integration
+    "hrsh7th/nvim-cmp",
+    -- optional for telescope integration
+    "nvim-telescope/telescope.nvim",
+    -- optional for fzf-lua integration via vim.ui.select
+    "ibhagwan/fzf-lua",
+  },
+  opts = {
+    -- default is false, also needed for blink.cmp integration!
+    enable_cmp_integration = true,
+    -- optional if your plugin installation directory
+    -- is not vim.fn.stdpath("data") .. "/lazy/
+    plugin_path = vim.fn.expand("$HOME/plugins/"),
+  },
+  config = function(_, opts)
+    require("emoji").setup(opts)
+    -- optional for telescope integration
+    local ts = require('telescope').load_extension 'emoji'
+    vim.keymap.set('n', '<leader>se', ts.emoji, { desc = '[S]earch [E]moji' })
+  end,
   },
 
-  -- emoji blink.cmp integration
-  {
+-- emoji blink.cmp integration
+-- Высокопроизводительный движок автодополнения с поддержкой множества источников, включая emoji и lazydev (см. предыдущие ответы).
+-- Горячие клавиши для управления автодополнением: <C-space>, <C-e>, <CR>, <Tab>, <S-Tab>, <C-k>, <C-j>, <C-f>, <C-b> (управление списком автодополнения и документацией).
+    {
     "saghen/blink.cmp",
     dependencies = { "allaman/emoji.nvim", "saghen/blink.compat" },
     opts = {
@@ -155,6 +184,11 @@ return {
     },
   },
 
+  -- Инструмент для поиска и замены, интегрированный через удобные горячие клавиши и команды.
+    -- <leader>RG — открыть окно поиска и замены.
+    -- <leader>Rg — открыть поиск в текущем файле.
+    -- <leader>Rw — поиск слова под курсором.
+    -- <leader>Rs — поиск выделенного текста.
   {
     "MagicDuck/grug-far.nvim",
     cmd = { "GrugFar", "GrugFarWithin" },
@@ -169,6 +203,11 @@ return {
       -- stylua: ignore end
     },
   },
+
+  
+-- Позволяет ровнять текст по определённым символам или шаблонам с режимом предпросмотра.
+    -- Визуальный режим: ga — выравнивание по шаблону.
+    -- Визуальный режим: gA — выравнивание с предпросмотром.
 
   {
     "nvim-mini/mini.align",
