@@ -1,4 +1,6 @@
 return {
+
+-- Этот конфигурационный блок на Lua — настройка для плагина автодополнения Neovim saghen/blink.cmp, который является быстрым и функциональным движком для автодополнения кода с поддержкой LSP и внешних источников.
   {
     "saghen/blink.cmp",
     event = "InsertEnter",
@@ -139,7 +141,7 @@ return {
     end,
   },
 
-  -- lazydev
+-- lazydevПлагин folke/lazydev.nvim — это инструмент для ускоренной и удобной настройки Lua Language Server (LuaLS) в Neovim. Его основная задача — автоматически и лениво подгружать библиотеки и определения типов только для тех модулей, которые вы реально используете в открытых Lua-файлах. Это значительно ускоряет автодополнение и работу ЛСП для Lua в конфигурациях Neovim.
   {
     "folke/lazydev.nvim",
     ft = "lua",
@@ -150,7 +152,7 @@ return {
     },
   },
 
-  -- lazydev blink integration
+  -- lazydev blink integrationlazydev.nvim загружается только для Lua-файлов (ft = "lua").
   {
     "saghen/blink.cmp",
     opts = {

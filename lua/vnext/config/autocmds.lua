@@ -1,5 +1,13 @@
-local api = vim.api
 
+
+-- Подсвечивает текст после копирования (улучшение UX).
+-- Отключает автокомментирование в новых строках.
+-- Запоминает и восстанавливает позицию курсора в файлах.
+-- Позволяет быстро закрывать справочные и служебные окна (help, man, quickfix).
+-- Интегрируется с инструментом для управления конфигурациями chezmoi, автоматизируя применение изменений.
+
+local api = vim.api
+--  подсвечивает скопированный учатсок текста
 api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
@@ -13,7 +21,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
   desc = "Disable New Line Comment",
 })
-
+-- возврат курсора к последнему мету редактирования
 api.nvim_create_autocmd("BufReadPost", {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')

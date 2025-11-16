@@ -18,6 +18,7 @@ return {
       { "<leader>m", group = "Misc" },
       { "<leader>s", group = "Search" },
       { "<leader>t", group = "Toggles" },
+      { "<leader>e", group = "Terminal" },
       { "<leader>u", group = "UI" },
       { "<leader>w", group = "Window" },
       { "zv", hidden = true },

@@ -1,5 +1,11 @@
 return {
   {
+
+-- mfussenegger/nvim-lint — асинхронный плагин для линтинга (проверки кода на ошибки и стиль).
+-- Настраивается запуск линтеров по типам файлов (dockerfile, go, lua, markdown, yaml и др.).
+-- Линтеры запускаются на события сохранения (BufWritePost), открытия буфера (BufReadPost) и выхода из режима вставки (InsertLeave).
+-- В конфиге создаётся автокоманда, вызывающая linting при этих событиях.
+
     "mfussenegger/nvim-lint",
     event = { "BufWritePost", "BufReadPost", "InsertLeave" },
     opts = {
@@ -24,6 +30,7 @@ return {
     end,
   },
 
+ -- автоматическое добавление парных скобок, кавычек и др.
   {
     "windwp/nvim-autopairs",
     event = { "BufReadPre", "BufNewFile" },
@@ -39,6 +46,7 @@ return {
     },
   },
 
+  -- лагин отображения структуры кода (оглавление) <leader>to
   {
     "hedyhli/outline.nvim",
     cmd = { "Outline", "OutlineOpen" },
@@ -56,6 +64,8 @@ return {
     },
   },
 
+
+-- плагин, интегрирующий инструменты для работы с Kustomize (инструмент для управления конфигурациями Kubernetes), позволяет видеть и применять проверки, связанные с депрецированными функциями, запускать внешние команды
   {
     "allaman/kustomize.nvim",
     dev = true,
@@ -89,6 +99,7 @@ return {
       require("kustomize").setup(opts)
     end,
   },
+  -- плагин для вызова документации Go через команду :GoDoc
   {
     "fredrikaverpil/godoc.nvim",
     cmd = { "GoDoc" },
