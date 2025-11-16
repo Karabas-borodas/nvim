@@ -67,8 +67,8 @@ return {
 
 -- плагин, интегрирующий инструменты для работы с Kustomize (инструмент для управления конфигурациями Kubernetes), позволяет видеть и применять проверки, связанные с депрецированными функциями, запускать внешние команды
   {
-    "allaman/kustomize.nvim",
-    dev = true,
+ "allaman/kustomize.nvim",
+    -- dev = true,
     ft = "yaml",
     opts = {
       enable_lua_snip = true,

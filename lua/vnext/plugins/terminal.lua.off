@@ -1,5 +1,6 @@
 return {
-  "your-github-username/your-repo", -- если это внешний плагин, или оставьте пустым
+  "your-github-username/your-repo", 
+  -- если это внешний плагин, или оставьте пустым
   -- Если это кастомный код, просто оберните его в таблицу для lazy.nvim:
   config = function()
     vim.keymap.set("<leader>e", "<esc><esc>", "<c-\\><c-n>")
