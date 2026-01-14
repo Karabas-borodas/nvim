@@ -1,0 +1,104 @@
+return {
+  'mfussenegger/nvim-dap',
+  dependencies = {
+    'leoluz/nvim-dap-go',
+    'rcarriga/nvim-dap-ui',
+    'theHamsta/nvim-dap-virtual-text',
+    'nvim-neotest/nvim-nio',
+    'williamboman/mason.nvim',
+    'vadimcn/vscode-lldb',
+    'jay-babu/mason-nvim-dap.nvim',
+  },
+  config = function()
+    local dap = require('dap')
+    local dapui = require('dapui')
+
+    -- Setup DAP UI
+    dapui.setup({
+      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+      controls = {
+        icons = {
+          pause = '⏸',
+          play = '▶',
+          step_into = '⏎',
+          step_over = '⏭',
+          step_out = '⏮',
+          step_back = 'b',
+          run_last = '▶▶',
+          terminate = '⏹',
+          disconnect = '⏏',
+        },
+      },
+    })
+
+    -- Setup DAP Go
+    require('dap-go').setup()
+
+    -- Setup Mason DAP
+    require('mason-nvim-dap').setup({
+      automatic_setup = true,
+      handlers = {},
+      ensure_installed = {
+        'delve',
+      },
+    })
+
+    -- Setup DAP Virtual Text
+    require('nvim-dap-virtual-text').setup({
+      -- Optional: Customize display callback if needed
+      -- display_callback = function(variable)
+      --   return ' ' .. variable.value
+      -- end,
+    })
+
+    -- Elixir DAP Configuration
+    local elixir_ls_debugger = vim.fn.exepath('elixir-ls-debugger')
+    if elixir_ls_debugger ~= '' then
+      dap.adapters.mix_task = {
+        type = 'executable',
+        command = elixir_ls_debugger,
+      }
+
+      dap.configurations.elixir = {
+        {
+          type = 'mix_task',
+          name = 'phoenix server',
+          task = 'phx.server',
+          request = 'launch',
+          projectDir = '${workspaceFolder}',
+          exitAfterTaskReturns = false,
+          debugAutoInterpretAllModules = false,
+        },
+      }
+    end
+
+    -- Keymaps
+    vim.keymap.set('n', '<space>b', dap.toggle_breakpoint)
+    vim.keymap.set('n', '<space>gb', dap.run_to_cursor)
+    vim.keymap.set('n', '<space>?', function()
+      require('dapui').eval(nil, { enter = true })
+    end)
+    vim.keymap.set('n', '<F1>', dap.continue)
+    vim.keymap.set('n', '<F2>', dap.step_into)
+    vim.keymap.set('n', '<F3>', dap.step_over)
+    vim.keymap.set('n', '<F4>', dap.step_out)
+    vim.keymap.set('n', '<F5>', dap.step_back)
+    vim.keymap.set('n', '<F12>', dap.restart)
+
+    -- DAP Listeners
+    dap.listeners.before.attach.dapui_config = function()
+      dapui.open()
+    end
+    dap.listeners.before.launch.dapui_config = function()
+      dapui.open()
+    end
+    dap.listeners.before.event_terminated.dapui_config = function()
+      dapui.close()
+    end
+    dap.listeners.before.event_exited.dapui_config = function()
+      dapui.close()
+    end
+  end,
+}
+
+

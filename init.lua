@@ -1,25 +1,20 @@
 --Basic
 require("core.plugins")
 require("core.mappings")
-require("core.colors")
+require("core.plugins")
+--theme
+-- require("core.palenightfall")
+require("core.tundra")
+-- require("core.kanagawa")
 
---Plugins
-require("plugins.neotree")
+-- plugins
 require("plugins.treesitter")
-require("plugins.mason")
-require("plugins.some_plagins")
-require("plugins.lsp")
+require("plugins.neotree")
 require("plugins.telescope")
+require("plugins.lsp")
 require("plugins.cmp")
-
---require('plugins.nullls')
+require("plugins.whichkey")
 require("plugins.debug")
-require("plugins.tmux_navigator")
 require("plugins.terminal")
-require("plugins.buffline")
-require("plugins.planery")
---require('plugins.lsp')
-vim.cmd([[
-  autocmd VimEnter * if filereadable("mix.exs") | silent !mix phx.server & | endif
-]])
-vim.cmd("autocmd VimEnter * !mix archive.install hex phx_new --force")
+require("plugins.somesettings")
+

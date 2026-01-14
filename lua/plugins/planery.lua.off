@@ -11,12 +11,18 @@ return {
       alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' }, -- a set of other keywords that all map to this FIX keywords
       -- signs = false, -- configure signs for some keywords individually
     },
-    -- TODO:
-    -- BUG:
-    -- ISSUE:
-    -- WARN:
-    -- PERF:
-    -- TEST:
+    -- FIX:
+-- HACK:
+-- TODO:
+-- PERF:
+-- WARNING:
+-- INFO:
+--ISSUE:
+--OPTIM:
+--XXX:
+--PERFORMANCE:
+--TESTING:
+--PASSED:
     TODO = { icon = ' ', color = 'info' },
     HACK = { icon = ' ', color = 'warning' },
     WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },

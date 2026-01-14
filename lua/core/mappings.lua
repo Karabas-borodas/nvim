@@ -2,6 +2,11 @@ vim.g.mapleader = " "
 
 -- NeoTree
 vim.keymap.set("n", "<leader>e", ":Neotree left reveal<CR>")
+-- Переход на правое окно
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
+-- Переход на левое окно
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
+
 -- vim.keymap.set("n", "<leader>o", ":Neotree float git_status<CR>")
 -- Настройка сочетания клавиш для открытия и закрытия neo-tree
 vim.api.nvim_set_keymap("n", "\\", ":Neotree close<CR>", { noremap = true, silent = true })
@@ -10,12 +15,25 @@ vim.api.nvim_set_keymap("n", "\\", ":Neotree close<CR>", { noremap = true, silen
 --vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', { noremap = true, silent = true })
+-- замена ворнингов на буквами на красивые значки
+ vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+ vim.fn.sign_define("DiagnosticSignError",
+ {text = " ", texthl = "DiagnosticSignError"})
+ vim.fn.sign_define("DiagnosticSignWarn",
+ {text = " ", texthl = "DiagnosticSignWarn"})
+ vim.fn.sign_define("DiagnosticSignInfo",
+ {text = " ", texthl = "DiagnosticSignInfo"})
+ vim.fn.sign_define("DiagnosticSignHint",
+ {text = "󰌵", texthl = "DiagnosticSignHint"})
+-- нумерация строк
+vim.opt.number = true
+vim.opt.relativenumber = true -- включение относительной нумерации строк
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- vim.g.mapleader = " "
+-- vim.g.maplocalleader = " "
 
 -- Telescope bindings
 vim.keymap.set("n", ",ff", "<cmd>Telescope find_files<cr>", { noremap = true, silent = true })

@@ -5,3 +5,41 @@ gt - переход на следующую кладку
 gT - переход на предыдущую вкладку
 
 https://elixir-lang.org/install.html
+
+
+база с Astrovim
+Устанавливаем nvim
+https://github.com/neovim/neovim/blob/master/INSTALL.md
+из файла tag
+
+удаляем все фалы nvim
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
+mv ~/.local/state/nvim ~/.local/state/nvim.bak
+mv ~/.cache/nvim ~/.cache/nvim.bak
+mv ~/.config/nvim ~/.config/nvim.bak
+ставим шрифты
+https://www.nerdfonts.com/font-downloads
+
+создаем папку nvim
+далее создаем init.lua
+папку lua -из нее vim берет конфигурацию
+папку plagins core
+
+устанабливаем Lazy.nvim
+https://github.com/folke/lazy.nvim?tab=readme-ov-file -----9версия
+выбрать install
+подключть в init.lua require('core.plagins)
+
+дерево neotree
+https://github.com/nvim-neo-tree/neo-tree.nvim
+
+lsp дополнитель установка плагинов
+sudo apt install golang-go
+
+телескоп установка дополнительных плагинов
+sudo apt-get install ripgrep
+sudo apt-get install fd-find
+
+настройка тем
+https://github.com/rebelot/kanagawa.nvim
+
