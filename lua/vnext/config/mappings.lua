@@ -39,6 +39,12 @@ map("n", "<tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<S-tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 map("n", "<leader>bD", "<cmd>%bd|e#|bd#<cr>", { desc = "Close all but the current buffer" })
 
+-- вкладки (tabs)
+map("n", "gt", "<cmd>tabnext<cr>", { desc = "Next tab" })
+map("n", "gT", "<cmd>tabprevious<cr>", { desc = "Prev tab" })
+map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New tab" })
+map("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Close tab" })
+
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New file" })
 -- save file
