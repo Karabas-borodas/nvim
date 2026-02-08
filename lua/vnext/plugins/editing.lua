@@ -145,9 +145,7 @@ return {
   opts = {
     -- default is false, also needed for blink.cmp integration!
     enable_cmp_integration = true,
-    -- optional if your plugin installation directory
-    -- is not vim.fn.stdpath("data") .. "/lazy/
-    plugin_path = vim.fn.expand("$HOME/plugins/"),
+    -- plugin_path по умолчанию = stdpath("data").."/lazy/" (где Lazy ставит плагин)
   },
   config = function(_, opts)
     require("emoji").setup(opts)

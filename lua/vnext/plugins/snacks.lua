@@ -110,7 +110,6 @@ return {
     { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition" },
     { "<leader>gi", function() Snacks.lazygit.open() end, desc = "Lazygit"},
     { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
-    { "<c-n>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
   },
   -- stylua: ignore end
   init = function()

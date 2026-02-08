@@ -46,8 +46,44 @@ map("n", "<leader>fs", "<cmd>w<cr>", { desc = "Save file" })
 -- open path under cursor
 map("n", "<leader>fo", "gf", { desc = "Open path under cursor" })
 
--- terminal mappings
-map("t", "<C-n>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+-- Плавающий терминал по <C-n> (отдельное окно, не внизу)
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { noremap = true, desc = "Terminal: normal mode" })
+
+local float_term_state = {
+  floating = { buf = -1, win = -1 },
+}
+
+local function float_term_create(opts)
+  opts = opts or {}
+  local width = opts.width or math.floor(vim.o.columns * 0.8)
+  local height = opts.height or math.floor(vim.o.lines * 0.8)
+  local col = math.floor((vim.o.columns - width) / 2)
+  local row = math.floor((vim.o.lines - height) / 2)
+  local buf = vim.api.nvim_create_buf(false, true)
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor",
+    width = width,
+    height = height,
+    col = col,
+    row = row,
+    style = "minimal",
+    border = "rounded",
+  })
+  return { buf = buf, win = win }
+end
+
+local function float_term_toggle()
+  if not vim.api.nvim_win_is_valid(float_term_state.floating.win) then
+    float_term_state.floating = float_term_create()
+    vim.fn.termopen(vim.o.shell)
+  else
+    vim.api.nvim_win_hide(float_term_state.floating.win)
+  end
+  vim.api.nvim_command("startinsert")
+end
+
+vim.api.nvim_create_user_command("Floaterminal", float_term_toggle, {})
+map({ "n", "t" }, "<C-n>", float_term_toggle, { desc = "Toggle Terminal (float)" })
 
 -- quickfix mappings
 map("n", "<leader>j", "<cmd>cnext<cr>", { desc = "Qickfix next" })

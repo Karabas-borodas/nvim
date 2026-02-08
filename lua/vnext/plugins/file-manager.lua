@@ -49,7 +49,22 @@ return {
         commands = {
           delete = function(state)
             local path = state.tree:get_node().path
-            vim.fn.system({ "trash", vim.fn.fnameescape(path) })
+            local ok = false
+            if vim.fn.executable("gio") == 1 then
+              vim.fn.system({ "gio", "trash", path })
+              ok = (vim.v.shell_error == 0)
+            elseif vim.fn.executable("trash-put") == 1 then
+              vim.fn.system({ "trash-put", path })
+              ok = (vim.v.shell_error == 0)
+            end
+            if not ok then
+              local del_ok = pcall(vim.fn.delete, path, "rf")
+              if del_ok then
+                vim.notify("Удалено (корзина недоступна)", vim.log.levels.INFO)
+              else
+                vim.notify("Не удалось удалить: " .. path, vim.log.levels.ERROR)
+              end
+            end
             require("neo-tree.sources.manager").refresh(state.name)
           end,
           system_open = function(state)
@@ -95,7 +110,7 @@ return {
               },
             },
             ["A"] = "add_directory",
-            ["d"] = "noop",
+            ["d"] = "delete",
             ["dd"] = "delete",
             ["r"] = "rename",
             ["y"] = "copy_to_clipboard",
