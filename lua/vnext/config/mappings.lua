@@ -52,6 +52,19 @@ map("n", "<leader>fs", "<cmd>w<cr>", { desc = "Save file" })
 -- open path under cursor
 map("n", "<leader>fo", "gf", { desc = "Open path under cursor" })
 
+-- gf: подсветка слова и поиск по всему файлу
+map("n", "gf", function()
+  -- Получаем слово под курсором
+  local word = vim.fn.expand("<cword>")
+  if word == "" then
+    return
+  end
+  -- Подсвечиваем слово и ищем его
+  vim.fn.setreg("/", "\\<" .. word .. "\\>")
+  vim.cmd("set hlsearch")
+  vim.cmd("normal! n")
+end, { desc = "Highlight word and search" })
+
 -- Плавающий терминал по <C-n> (отдельное окно, не внизу)
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { noremap = true, desc = "Terminal: normal mode" })
 
@@ -79,12 +92,53 @@ local function float_term_create(opts)
 end
 
 local function float_term_toggle()
-  if not vim.api.nvim_win_is_valid(float_term_state.floating.win) then
-    float_term_state.floating = float_term_create()
-    vim.fn.termopen(vim.o.shell)
-  else
-    vim.api.nvim_win_hide(float_term_state.floating.win)
+  -- Проверяем, существует ли уже буфер терминала
+  local term_buf = float_term_state.floating.buf
+  local term_win = float_term_state.floating.win
+  
+  -- Если окно валидно и открыто - скрываем его
+  if term_win ~= -1 and vim.api.nvim_win_is_valid(term_win) then
+    vim.api.nvim_win_hide(term_win)
+    return
   end
+  
+  -- Если буфер терминала существует и валиден - открываем его в новом окне
+  if term_buf ~= -1 and vim.api.nvim_buf_is_valid(term_buf) then
+    local win_config = float_term_create()
+    vim.api.nvim_win_set_buf(win_config.win, term_buf)
+    float_term_state.floating.win = win_config.win
+    vim.api.nvim_set_current_win(win_config.win)
+  else
+    -- Буфера нет - создаем новый терминал
+    local win_config = float_term_create()
+    float_term_state.floating.win = win_config.win
+    
+    -- Переключаемся на буфер окна перед созданием терминала
+    vim.api.nvim_set_current_win(win_config.win)
+    vim.api.nvim_set_current_buf(win_config.buf)
+    
+    -- Определяем интерактивную оболочку для сохранения истории
+    local shell = vim.o.shell
+    -- Проверяем, является ли оболочка интерактивной
+    if vim.fn.executable("bash") == 1 and shell:match("bash") then
+      shell = "bash -i"  -- интерактивный режим для сохранения истории
+    elseif vim.fn.executable("zsh") == 1 and shell:match("zsh") then
+      shell = "zsh -i"   -- интерактивный режим для сохранения истории
+    end
+    
+    -- Сохраняем текущую рабочую директорию
+    local cwd = vim.fn.getcwd()
+    vim.fn.termopen(shell, {
+      cwd = cwd,
+      on_exit = function()
+        -- При выходе из терминала очищаем состояние
+        float_term_state.floating = { buf = -1, win = -1 }
+      end,
+    })
+    -- Сохраняем буфер в состоянии
+    float_term_state.floating.buf = vim.api.nvim_get_current_buf()
+  end
+  -- Переключаемся в режим вставки
   vim.api.nvim_command("startinsert")
 end
 
