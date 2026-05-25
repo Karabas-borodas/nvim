@@ -68,3 +68,13 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.system({ "chezmoi", "apply", "-k" })
   end,
 })
+
+-- Set conceallevel for markdown files to allow render-markdown to work correctly
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.conceallevel = 2
+  end,
+  desc = "Set conceallevel to 2 for markdown files",
+})
+

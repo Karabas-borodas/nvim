@@ -104,6 +104,7 @@ return {
     { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+    { "<leader>lg", function() Snacks.picker.grep({ layout = "default" }) end, desc = "Grep" },
     { "<leader>ld", function() Snacks.picker.lsp_definitions() end, desc = "Definition" },
     { "<leader>lr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     { "<leader>lI", function() Snacks.picker.lsp_implementations() end, desc = "Implementation" },

@@ -45,7 +45,7 @@ return {
         providers = {
           lsp = {
             min_keyword_length = function(ctx)
-              return ctx.trigger.kind == "manual" and 0 or 2 -- trigger when invoking with shortcut
+              return 0
             end,
             score_offset = 0,
           },
@@ -84,7 +84,7 @@ return {
           selection = { preselect = false, auto_insert = true },
         },
         trigger = {
-          show_on_insert_on_trigger_character = false,
+          show_on_insert_on_trigger_character = true,
           show_on_accept_on_trigger_character = false,
         },
         menu = {

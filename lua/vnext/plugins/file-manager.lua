@@ -15,8 +15,8 @@ return {
     cmd = "Neotree",
     keys = {
       { "\\", "<cmd>Neotree reveal toggle<cr>", desc = "Toggle Filetree" },
-      { "<leader>fg", "<cmd>Neotree float grep<cr>", desc = "Grep (float)" },
-      { "<leader>ft", "<cmd>Neotree float terminal<cr>", desc = "Terminal (float)" },
+      { "<leader>fg", function() Snacks.picker.grep({ layout = "default" }) end, desc = "Grep" },
+      { "<leader>ft", "<cmd>Floaterminal<cr>", desc = "Terminal (float)" },
     },
     init = function()
       vim.api.nvim_create_autocmd("BufEnter", {
@@ -43,6 +43,19 @@ return {
         },
         name = {
           highlight_opened_files = true,
+        },
+        git_status = {
+          symbols = {
+            added = "",
+            modified = "",
+            deleted = "",
+            renamed = "",
+            untracked = "",
+            ignored = "",
+            unstaged = "",
+            staged = "",
+            conflict = "",
+          },
         },
       },
       filesystem = {
@@ -133,21 +146,6 @@ return {
         mappings = {
           ["g"] = "noop",
           ["G"] = "noop",
-        },
-      },
-      default_component_configs = {
-        git_status = {
-          symbols = {
-            added     = "",
-            modified  = "",
-            deleted   = "",
-            renamed   = "",
-            untracked = "",
-            ignored   = "",
-            unstaged  = "",
-            staged    = "",
-            conflict  = "",
-          },
         },
       },
       -- Настройка для плавающих окон grep и терминала
