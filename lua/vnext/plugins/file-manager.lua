@@ -15,7 +15,7 @@ return {
     cmd = "Neotree",
     keys = {
       { "\\", "<cmd>Neotree reveal toggle<cr>", desc = "Toggle Filetree" },
-      { "<leader>fg", function() Snacks.picker.grep({ layout = "default" }) end, desc = "Grep" },
+      { "<leader>fg", function() Snacks.picker.grep({ layout = "ivy" }) end, desc = "Grep" },
       { "<leader>ft", "<cmd>Floaterminal<cr>", desc = "Terminal (float)" },
     },
     init = function()

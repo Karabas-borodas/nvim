@@ -17,7 +17,7 @@ return {
         keys = {
           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.picker.files({filter = {cwd = true}, layout = 'default'})" },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          { icon = " ", key = "s", desc = "Find Text", action = ":lua Snacks.picker.grep({layout = 'default'})" },
+          { icon = " ", key = "s", desc = "Find Text", action = ":lua Snacks.picker.grep({layout = 'ivy'})" },
           { icon = " ", key = "b", desc = "File browser", action = function()  require("yazi").yazi(nil, vim.fn.getcwd()) end},
           {icon = " ", key = "g", desc = "Lazygit", action = ":lua Snacks.lazygit.open()" },
           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy check", enabled = package.loaded.lazy },
@@ -104,7 +104,7 @@ return {
     { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
-    { "<leader>lg", function() Snacks.picker.grep({ layout = "default" }) end, desc = "Grep" },
+    { "<leader>lg", function() Snacks.picker.grep({ layout = "ivy" }) end, desc = "Grep" },
     { "<leader>ld", function() Snacks.picker.lsp_definitions() end, desc = "Definition" },
     { "<leader>lr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     { "<leader>lI", function() Snacks.picker.lsp_implementations() end, desc = "Implementation" },
