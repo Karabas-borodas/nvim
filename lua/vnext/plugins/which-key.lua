@@ -12,6 +12,7 @@ return {
     spec = {
       { "<leader>b", group = "Buffers" },
       { "<leader>d", group = "Diagnostic" },
+      { "<leader>D", group = "Debug" },
       { "<leader>f", group = "Files" },
       { "<leader>g", group = "Git" },
       { "<leader>l", group = "Code" },

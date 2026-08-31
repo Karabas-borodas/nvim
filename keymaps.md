@@ -299,6 +299,40 @@ _(Определения, ссылки, реализации, типы — че�
 
 ---
 
+## Отладка (nvim-dap)
+
+**Плагины:** `mfussenegger/nvim-dap`, `rcarriga/nvim-dap-ui`, `leoluz/nvim-dap-go`
+
+**Функция:** интерактивная отладка кода для Go (с поддержкой Delve) с панелями переменных, стека вызовов, точек останова и консоли.
+
+### Основные клавиши (F1–F8):
+
+| Клавиша | Режим | Действие |
+| ------- | ----- | -------- |
+| `<F1>`  | n     | Запустить отладку / Продолжить (`dap.continue`) |
+| `<F2>`  | n     | Шаг в обход (`dap.step_over`) |
+| `<F3>`  | n     | Шаг внутрь (`dap.step_into`) |
+| `<F4>`  | n     | Шаг наружу (`dap.step_out`) |
+| `<F5>`  | n     | Точка останова (toggle breakpoint) |
+| `<F6>`  | n     | Прервать отладку (`dap.terminate`) |
+| `<F7>`  | n     | Скрыть/показать интерфейс отладки (`dapui.toggle`) |
+| `<F8>`  | n     | Отладка текущего теста Go (`dap-go.debug_test`) |
+
+### Сочетания Leader (<leader>D):
+
+| Клавиша      | Режим | Действие                                         |
+| ------------ | ----- | ------------------------------------------------ |
+| `<leader>Dc` | n     | Запустить отладку / Продолжить (`dap.continue`)  |
+| `<leader>Do` | n     | Шаг в обход (`dap.step_over`)                    |
+| `<leader>Di` | n     | Шаг внутрь (`dap.step_into`)                     |
+| `<leader>DO` | n     | Шаг наружу (`dap.step_out`)                      |
+| `<leader>Db` | n     | Точка останова (toggle breakpoint)               |
+| `<leader>Dt` | n     | Прервать отладку (`dap.terminate`)               |
+| `<leader>Du` | n     | Скрыть/показать интерфейс отладки (`dapui.toggle`)|
+| `<leader>Dg` | n     | Отладка текущего теста Go (`dap-go.debug_test`)  |
+
+---
+
 ## Диагностика (встроенная)
 
 **Конфиг:** `vnext.config.diagnostics`
@@ -607,6 +641,7 @@ _Отдельных keymaps в конфиге нет._
 | `<leader>l`         | Code               | lk/lR/la/lD — LSP, ld/lr/lI/lt/ls/lS — Snacks LSP, lf — Yazi                                             |
 | `<leader>s`         | Search             | ss/sw/sh/sL/sT/sd/sk/sR/sz — пикеры, sl — строки, si — иконки                                            |
 | `<leader>d`         | Diagnostic         | dj/dk/dc/dd — диагностика                                                                                |
+| `<leader>D`         | Debug              | Dc/Do/Di/DO/Db/Dt/Du/Dg — отладка (nvim-dap)                                                             |
 | `<leader>w`         | Window             | split, vsplit, закрыть, переместить, resize                                                              |
 | `<leader>t`         | Toggles            | to — Outline, tF — autoformat, ts — spell (Snacks)                                                       |
 | `<leader>u`         | UI                 | uZ/uz — zen/zoom, ux — Colorizer, un/uC/ul/uc/ud/uh/uD — переключатели (Snacks), uI — Treesitter inspect |

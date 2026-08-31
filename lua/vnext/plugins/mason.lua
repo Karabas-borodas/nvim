@@ -30,6 +30,7 @@ return {
         ensure_installed = {
           'java-debug-adapter',  -- Java Debug Adapter
           'java-test',          -- Java Test runner
+          'delve',              -- Go Delve debugger
         },
         automatic_installation = true,
       })
